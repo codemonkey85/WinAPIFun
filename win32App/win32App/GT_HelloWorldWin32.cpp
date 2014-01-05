@@ -18,7 +18,7 @@ static TCHAR szTitle[] = _T("Win32 Guided Tour Application");
 
 HINSTANCE hInst;
 static HWND hButton;
-
+const wchar_t * ButtonLabel = L"Press Me";
 
 // Forward declarations of functions included in this code module:
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -107,11 +107,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			{
 			case WM_LBUTTONDOWN:
 				// start sound
-
+				ButtonLabel = L"Pressed";
 				continue;
 			case WM_LBUTTONUP:
 				// stop sound
-
+				ButtonLabel = L"Not Pressed";
 				continue;
 			}
 			// Allow other messages to fall through
@@ -152,15 +152,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			5, 5,
 			greeting, _tcslen(greeting));
 		// End application-specific layout section.
+		
+		SendMessage(hButton, WM_SETTEXT, 0, (LPARAM) (ButtonLabel));
+		RedrawWindow(hButton, NULL, NULL, RDW_ERASE);
+		RedrawWindow(hWnd, NULL, NULL, NULL);
 
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_CREATE:
-
-		hButton = CreateWindow( L"button", L"Label",
+		
+		hButton = CreateWindow( L"button", ButtonLabel,
 			WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,
-			100, 200, 
-			50, 20,
+			10, 25, 
+			100, 20,
 			hWnd, (HMENU) BUTTON_ID,
 			hInst, NULL );
 
