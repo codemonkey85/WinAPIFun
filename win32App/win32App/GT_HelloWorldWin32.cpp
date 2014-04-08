@@ -1,6 +1,8 @@
 // GT_HelloWorldWin32.cpp
 // compile with: /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS /c
 
+// This is a comment!
+
 #include <windows.h>
 #include <stdlib.h>
 #include <string.h>
